@@ -33,7 +33,7 @@ class SampleTestCase(TestCase):
         task = Task(title='task1', due_at=due)
         task.save()
 
-        self.assertFalse(task.id_overdue(current))
+        self.assertFalse(task.is_overdue(current))
 
     def test_is_overdue_past(self):
         due = timezone.make_aware(datetime(2023, 6, 30, 23, 59, 59))
@@ -41,7 +41,7 @@ class SampleTestCase(TestCase):
         task = Task(title='task1', due_at=due)
         task.save()
 
-        self.assertTrue(task.id_overdue(current))
+        self.assertTrue(task.is_overdue(current))
 
     def test_is_overdue_none(self):
         due = None
@@ -49,11 +49,11 @@ class SampleTestCase(TestCase):
         task = Task(title='task1', due_at=due)
         task.save()
 
-        self.assertFalse(task.id_overdue(current))
+        self.assertFalse(task.is_overdue(current))
 
 class TodoViewTestCase(TestCase):
     def test_index_get(self):
-        Client = Client()
+        client = Client()
         response = client.get('/')
 
         self.assertEqual(response.status_code, 200)
@@ -63,7 +63,7 @@ class TodoViewTestCase(TestCase):
     def test_index_post(self):
         client = Client()
         data = {'title': 'Test Task', 'due_at': '2023-06-30 23:59:59'}
-        response = client.post('/',date)
+        response = client.post('/',data)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'todo/index.html')
