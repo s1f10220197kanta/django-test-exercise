@@ -1,0 +1,15 @@
+h1 {
+    border-radius:10px;
+    padding:10px;
+    background-color: lightblue;
+    color: white;
+    text-align:center;
+}
+
+p {
+    text-align:center;
+}
+
+.middle {
+    text-align:center;
+}
